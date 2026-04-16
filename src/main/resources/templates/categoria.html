@@ -1,0 +1,119 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>categoria</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .contenedor {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            width: 90%;
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        button {
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #1976d2;
+            color: white;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #125aa0;
+        }
+
+        table {
+            width: 90%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #1976d2;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .acciones a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #1976d2;
+            font-weight: bold;
+        }
+
+        .acciones a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1 style="text-align: center; margin-bottom: 50px;">
+    hola pagina de categorias
+</h1>
+
+<div class="contenedor">
+    <button onclick="window.location.href='/home'">Home</button>
+</div>
+
+<h1 style="text-align:center">Categorias</h1>
+
+<div style="text-align:center;">
+    <a th:href="@{categoria/nuevo}">Nueva categoria</a>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>DESCRIPCION</th>
+        <th>ACCIONES</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="Categoria : ${categoria}">
+        <td th:text="${Categoria.idCategoria}"></td>
+        <td th:text="${Categoria.nombreCategoria}"></td>
+        <td th:text="${Categoria.descripcionCategoria}"></td>
+        <td class="acciones">
+            <a th:href="@{/categoria/editar/{id}(id=${Categoria.idCategoria})}">Editar</a>
+            <a th:href="@{/categoria/eliminar/{id}(id=${Categoria.idCategoria})} ">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios</title>
+
+    <style>
+        body {
+         font-family: Arial, sans-serif;
+         background-color: #f4f6f8;
+         margin: 0;
+         padding: 0;
+     }
+
+     h1 {
+         text-align: center;
+         color: #333;
+     }
+
+     .contenedor {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+         gap: 20px;
+         width: 90%;
+         max-width: 600px;
+         margin: 30px auto;
+     }
+
+     button {
+         padding: 12px;
+         font-size: 16px;
+         border: none;
+         border-radius: 8px;
+         cursor: pointer;
+         background-color: #1976d2;
+         color: white;
+         transition: 0.3s;
+     }
+
+     button:hover {
+         background-color: #125aa0;
+     }
+
+     table {
+         width: 90%;
+         margin: 30px auto;
+         border-collapse: collapse;
+         background-color: white;
+         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+     }
+
+     th, td {
+         border: 1px solid #ddd;
+         padding: 12px;
+         text-align: center;
+     }
+
+     th {
+         background-color: #1976d2;
+         color: white;
+     }
+
+     tr:nth-child(even) {
+         background-color: #f9f9f9;
+     }
+
+     .acciones a {
+         margin: 0 5px;
+         text-decoration: none;
+         color: #1976d2;
+         font-weight: bold;
+     }
+
+     .acciones a:hover {
+         text-decoration: underline;
+     }
+    </style>
+</head>
+
+<body>
+
+<h1 style="text-align: center; margin-bottom: 50px;">
+    hola pagina usuarios
+</h1>
+
+<div class="contenedor">
+    <button onclick="window.location.href='/home'">Home</button>
+</div>
+
+<h1 style="text-align:center">Lista de usuarios</h1>
+
+<div style="text-align:center;">
+    <a th:href="@{usuarios/nuevo}">Nuevo usuario</a>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>APELLIDO</th>
+        <th>EDAD</th>
+        <th>ACCIONES</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="Usuario : ${usuarios}">
+        <td th:text="${Usuario.idUsuario}"></td>
+        <td th:text="${Usuario.nombreUsuario}"></td>
+        <td th:text="${Usuario.apellidoUsuario}"></td>
+        <td th:text="${Usuario.edadUsuario}"></td>
+        <td class="acciones">
+            <a th:href="@{/usuarios/editar/{id}(id=${Usuario.idUsuario})} ">Editar</a>
+            <a th:href="@{/usuarios/eliminar/{id}(id=${Usuario.idUsuario})} ">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${modoEdicion} ? 'Editar detallepedido' : 'Nuevo detallepedido'"></title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            width: 100%;
+        }
+
+        .campo {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .acciones {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .btn-guardar {
+            background-color: #1976d2;
+            color: white;
+        }
+
+        .btn-guardar:hover {
+            background-color: #125aa0;
+        }
+
+        a.btn {
+            text-decoration: none;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 th:text="${modoEdicion} ? 'Editar detallepedido' : 'Nuevo detallePedido'"></h1>
+
+    <form th:action="${modoEdicion} ? @{/detallepedido/actualizar/{id}(id=${detallepedido.idDetalle})} : @{/detallepedido/guardar}"
+          th:object="${detallepedido}"
+          method="post">
+
+        <div class="campo">
+            <label for="idDetalle">ID</label>
+            <input type="text" id="idDetalle" th:field="*{idDetalle}">
+            <div class="error"
+                 th:if="${#fields.hasErrors('idDetalle')}"
+                 th:errors="*{idDetalle}"></div>
+        </div>
+
+        <div class="campo">
+            <label for="cantidadDetalle">Cantidad detallePedido</label>
+            <input type="text" id="cantidadDetalle" th:field="*{cantidadDetalle}">
+            <div class="error"
+                 th:if="${#fields.hasErrors('cantidadDetalle')}"
+                 th:errors="*{cantidadDetalle}"></div>
+        </div>
+
+        <div class="campo">
+            <label for="precioDetalle">Precio</label>
+            <input type="number" id="precioDetalle" th:field="*{precioDetalle}">
+            <div class="error"
+                 th:if="${#fields.hasErrors('precioDetalle')}"
+                 th:errors="*{precioDetalle}"></div>
+        </div>
+
+        <div class="campo">
+            <label for="idPedido">Pedido</label>
+            <input type="number" id="idPedido" th:field="*{idPedido}">
+            <div class="error"
+                 th:if="${#fields.hasErrors('idPedido')}"
+                 th:errors="*{idPedido}"></div>
+        </div>
+
+        <div class="campo">
+            <label for="idProducto">Producto</label>
+            <input type="number" id="idProducto" th:field="*{idProducto}">
+            <div class="error"
+                 th:if="${#fields.hasErrors('idProducto')}"
+                 th:errors="*{idProducto}"></div>
+        </div>
+
+        <div class="acciones">
+            <button type="submit"
+                    class="btn btn-guardar"
+                    th:text="${modoEdicion} ? 'Actualizar' : 'Guardar'"></button>
+
+            <a th:href="@{/detallepedido}" class="btn btn-guardar">Volver</a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>
