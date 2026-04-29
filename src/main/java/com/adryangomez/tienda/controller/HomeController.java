@@ -32,4 +32,9 @@ public class HomeController {
         model.addAttribute("usuario", new Usuario());
         return "register";
     }
+
+    @GetMapping("/denegado")
+    public String accesoDenegado(){
+        return "denegado";
+    }
 }

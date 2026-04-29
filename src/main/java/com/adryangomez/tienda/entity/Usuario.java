@@ -1,5 +1,6 @@
 package com.adryangomez.tienda.entity;
 
+import com.adryangomez.tienda.enumtypes.userType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -30,10 +31,15 @@ public class Usuario {
     @NotBlank(message = "El username no puede ir vacío")
     private String username;
 
+@Column
     @NotBlank(message = "La contraseña no puede ir vacía")
     private String password;
 
-    private String rol;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rol")
+    private userType rol;
+
     //Metodos getters and setters
     public Integer getIdUsuario() {
         return idUsuario;
@@ -83,11 +89,24 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getRol() {
+    public userType getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(userType rol) {
+        this.rol = rol;
+    }
+
+    public Usuario() {
+    }
+
+    public Usuario(Integer idUsuario, String nombreUsuario, String apellidoUsuario, Integer edadUsuario, String username, String password, userType rol) {
+        this.idUsuario = idUsuario;
+        this.nombreUsuario = nombreUsuario;
+        this.apellidoUsuario = apellidoUsuario;
+        this.edadUsuario = edadUsuario;
+        this.username = username;
+        this.password = password;
         this.rol = rol;
     }
 }

@@ -1,6 +1,7 @@
 package com.adryangomez.tienda.service;
 
 import com.adryangomez.tienda.entity.Usuario;
+import com.adryangomez.tienda.enumtypes.userType;
 import com.adryangomez.tienda.exception.ResourceNotFoundException;
 import com.adryangomez.tienda.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
         // asignar rol por defecto
-        usuario.setRol("ROLE_USER");
+        usuario.setRol(userType.valueOf("ROLE_USER"));
 
         return usuarioRepository.save(usuario);
     }

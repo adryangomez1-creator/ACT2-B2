@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -118,7 +118,8 @@ a {
             <div class="btn">Productos</div>
         </a>
 
-        <a th:href="@{/usuarios}" class="full">
+        <a sec:authorize="hasRole('ADMIN')"
+                th:href="@{/usuarios}" class="full">
             <div class="btn">Usuarios</div>
         </a>
 

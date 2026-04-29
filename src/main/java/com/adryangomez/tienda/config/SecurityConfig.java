@@ -46,7 +46,7 @@ public class SecurityConfig {
             return User.builder()
                     .username(usuario.getUsername())
                     .password(usuario.getPassword())
-                    .roles(usuario.getRol().replace("ROLE_", ""))
+                    .roles(usuario.getRol().name().replace("ROLE_", ""))
                     .build();
         }
     }
@@ -56,7 +56,16 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/register", "/guardar-usuario", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/", "/login", "/register", "/guardar-usuario",
+                                "/css/**", "/js/**", "/images/**").permitAll()
+
+                        // SOLO ADMIN puede acceder a usuarios
+                        .requestMatchers("/usuarios/**").hasRole("ADMIN")
+
+                        // ADMIN y USER pueden acceder al resto
+                        .requestMatchers("/categoria/**", "/detallepedido/**", "/pedido/**", "/producto/**")
+                        .hasAnyRole("ADMIN", "USER")
+
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -67,7 +76,10 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
-                );
+                )
+                .exceptionHandling(e -> e .accessDeniedPage("/denegado"));
+
+
 
         return http.build();
     }
