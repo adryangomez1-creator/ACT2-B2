@@ -1,7 +1,8 @@
+<!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Pedidos</title>
+    <title>Ventas</title>
 
     <style>
         body {
@@ -79,41 +80,45 @@
 <body>
 
 <h1 style="text-align: center; margin-bottom: 50px;">
-    hola pagina detalles de pedidos
+    Gestión de Ventas
 </h1>
 
 <div class="contenedor">
     <button onclick="window.location.href='/home'">Home</button>
 </div>
 
-<h1 style="text-align:center">Lista de Detalles Pedidos</h1>
+<h1 style="text-align:center">Ventas</h1>
 
 <div style="text-align:center;">
-    <a th:href="@{detallepedido/nuevo}">Nuevo detalle pedido</a>
+    <a th:href="@{/venta/nuevo}">Nueva venta</a>
 </div>
 
 <table>
     <thead>
     <tr>
         <th>ID</th>
-        <th>CANTIDAD</th>
-        <th>PRECIO</th>
-        <th>PEDIDO</th>
-        <th>PRODUCTO</th>
+        <th>FECHA</th>
+        <th>TOTAL</th>
+        <th>ESTADO</th>
+        <th>CLIENTE</th>
+        <th>USUARIO</th>
         <th>ACCIONES</th>
     </tr>
     </thead>
 
     <tbody>
-    <tr th:each="DetallePedido : ${detallepedido}">
-        <td th:text="${DetallePedido.idDetalle}"></td>
-        <td th:text="${DetallePedido.cantidadDetalle}"></td>
-        <td th:text="${DetallePedido.precioDetalle}"></td>
-        <td th:text="${DetallePedido.idPedido}"></td>
-        <td th:text="${DetallePedido.idProducto}"></td>
+    <tr th:each="venta : ${ventas}">
+        <td th:text="${venta.codigoVenta}"></td>
+        <td th:text="${venta.fechaVenta}"></td>
+        <td th:text="${venta.total}"></td>
+        <td th:text="${venta.estado}"></td>
+
+        <td th:text="${venta.cliente.nombreCliente}"></td>
+        <td th:text="${venta.usuario.username}"></td>
+
         <td class="acciones">
-            <a th:href="@{/detallepedido/editar/{id}(id=${DetallePedido.idDetalle})}">Editar</a>
-            <a th:href="@{/detallepedido/eliminar/{id}(id=${DetallePedido.idDetalle})} ">Eliminar</a>
+            <a th:href="@{/venta/editar/{id}(id=${venta.codigoVenta})}">Editar</a>
+            <a th:href="@{/venta/eliminar/{id}(id=${venta.codigoVenta})}">Eliminar</a>
         </td>
     </tr>
     </tbody>

@@ -5,72 +5,59 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
+@Table(name = "Usuarios")
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_usuario")
-    private Integer idUsuario;
+    @Column(name = "codigo_usuario")
+    private Integer codigoUsuario;
 
-    @NotBlank(message = "El nombre del usuario no puede ir vacio")
-    @Size(min = 2, max = 60, message = "El nombre debe tener entre 2 y 60 caracteres.")
-    @Column(name="nombre_usuario")
-    private String nombreUsuario;
-
-    @NotBlank(message = "El apellido del usuario no puede ir vacio")
-    @Size(min = 2, max = 60, message = "El apellido debe tener entre 2 y 60 caracteres.")
-    @Column(name="apellido_usuario")
-    private String apellidoUsuario;
-
-    @NotNull(message = "La edad no puede ir vacia")
-    @Min(value = 1, message = "La edad debe de ser mayor o igual a 1")
-    @Max(value = 120, message = "La edad maxima es de 120 caracteres")
-    @Column(name="edad_usuario")
-    private Integer edadUsuario;
-
-    @Column(unique = true)
     @NotBlank(message = "El username no puede ir vacío")
+    @Size(max = 45, message = "El username no puede exceder 45 caracteres")
+    @Column(unique = true, nullable = false)
     private String username;
 
-@Column
     @NotBlank(message = "La contraseña no puede ir vacía")
+    @Size(max = 100, message = "La contraseña no puede exceder 100 caracteres")
+    @Column(nullable = false)
     private String password;
 
+    @NotBlank(message = "El email no puede ir vacío")
+    @Email(message = "Debe ingresar un correo válido")
+    @Size(max = 60, message = "El email no puede exceder 60 caracteres")
+    @Column(unique = true, nullable = false)
+    private String email;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "rol")
+    @Column(name = "rol", nullable = false)
     private userType rol;
 
-    //Metodos getters and setters
-    public Integer getIdUsuario() {
-        return idUsuario;
+    @NotNull(message = "El estado no puede ir vacío")
+    @Column(nullable = false)
+    private Integer estado = 1;
+
+    // Constructor vacío
+    public Usuario() {
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    // Constructor completo
+    public Usuario(Integer codigoUsuario, String username, String password, String email, userType rol, Integer estado) {
+        this.codigoUsuario = codigoUsuario;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.rol = rol;
+        this.estado = estado;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    // Getters y Setters
+    public Integer getCodigoUsuario() {
+        return codigoUsuario;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-    }
-
-    public String getApellidoUsuario() {
-        return apellidoUsuario;
-    }
-
-    public void setApellidoUsuario(String apellidoUsuario) {
-        this.apellidoUsuario = apellidoUsuario;
-    }
-
-    public Integer getEdadUsuario() {
-        return edadUsuario;
-    }
-
-    public void setEdadUsuario(Integer edadUsuario) {
-        this.edadUsuario = edadUsuario;
+    public void setCodigoUsuario(Integer codigoUsuario) {
+        this.codigoUsuario = codigoUsuario;
     }
 
     public String getUsername() {
@@ -89,6 +76,14 @@ public class Usuario {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public userType getRol() {
         return rol;
     }
@@ -97,16 +92,11 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public Usuario() {
+    public Integer getEstado() {
+        return estado;
     }
 
-    public Usuario(Integer idUsuario, String nombreUsuario, String apellidoUsuario, Integer edadUsuario, String username, String password, userType rol) {
-        this.idUsuario = idUsuario;
-        this.nombreUsuario = nombreUsuario;
-        this.apellidoUsuario = apellidoUsuario;
-        this.edadUsuario = edadUsuario;
-        this.username = username;
-        this.password = password;
-        this.rol = rol;
+    public void setEstado(Integer estado) {
+        this.estado = estado;
     }
 }

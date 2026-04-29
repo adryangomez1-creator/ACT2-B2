@@ -1,96 +1,84 @@
 <!doctype html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
 
     <style>
         * {
-    box-sizing: border-box;
-    font-family: system-ui, sans-serif;
-}
+            box-sizing: border-box;
+            font-family: system-ui, sans-serif;
+        }
 
-body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #0b1320;
-}
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0b1320;
+        }
 
-/* fondo decorativo en azul */
-body::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at top, rgba(25,118,210,0.18), transparent 45%),
-        radial-gradient(circle at bottom, rgba(25,118,210,0.10), transparent 50%);
-}
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at top, rgba(25,118,210,0.18), transparent 45%),
+                radial-gradient(circle at bottom, rgba(25,118,210,0.10), transparent 50%);
+        }
 
-/* panel principal */
-.panel {
-    width: 420px;
-    padding: 2.5rem;
-    border-radius: 16px;
+        .panel {
+            width: 420px;
+            padding: 2.5rem;
+            border-radius: 16px;
+            background: rgba(245, 247, 251, 0.96);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(25,118,210,0.25);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+            text-align: center;
+        }
 
-    background: rgba(245, 247, 251, 0.96);
-    backdrop-filter: blur(10px);
+        h1 {
+            margin: 0 0 1.8rem;
+            font-size: 1.6rem;
+            color: #0b1320;
+            font-weight: 600;
+        }
 
-    border: 1px solid rgba(25,118,210,0.25);
-    box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+        .menu {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
 
-    text-align: center;
-}
+        a {
+            text-decoration: none;
+        }
 
-/* título */
-h1 {
-    margin: 0 0 1.8rem;
-    font-size: 1.6rem;
-    color: #0b1320;
-    font-weight: 600;
-}
+        .btn {
+            padding: 18px;
+            border-radius: 12px;
+            background: white;
+            border: 1px solid rgba(11,19,32,0.08);
+            color: #0b1320;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
 
-/* grid */
-.menu {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
+        .btn:hover {
+            background: #1976d2;
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(25,118,210,0.25);
+        }
 
-a {
-    text-decoration: none;
-}
-
-/* botones */
-.btn {
-    padding: 18px;
-    border-radius: 12px;
-
-    background: white;
-    border: 1px solid rgba(11,19,32,0.08);
-
-    color: #0b1320;
-    font-weight: 600;
-    font-size: 14px;
-
-    transition: 0.2s;
-    cursor: pointer;
-}
-
-/* hover con azul */
-.btn:hover {
-    background: #1976d2;
-    color: white;
-    transform: translateY(-4px);
-    box-shadow: 0 15px 30px rgba(25,118,210,0.25);
-}
-
-/* botón ancho completo */
-.full {
-    grid-column: span 2;
-}
+        .full {
+            grid-column: span 2;
+        }
     </style>
 </head>
 
@@ -102,16 +90,16 @@ a {
 
     <div class="menu">
 
-        <a th:href="@{/categoria}">
-            <div class="btn">Categoría</div>
+        <a th:href="@{/cliente}">
+            <div class="btn">cliente</div>
         </a>
 
-        <a th:href="@{/detallepedido}">
-            <div class="btn">Detalle pedidos</div>
+        <a th:href="@{/detalleventa}">
+            <div class="btn">Detalle venta</div>
         </a>
 
-        <a th:href="@{/pedido}">
-            <div class="btn">Pedido</div>
+        <a th:href="@{/venta}">
+            <div class="btn">venta</div>
         </a>
 
         <a th:href="@{/producto}">
@@ -119,7 +107,7 @@ a {
         </a>
 
         <a sec:authorize="hasRole('ADMIN')"
-                th:href="@{/usuarios}" class="full">
+           th:href="@{/usuarios}" class="full">
             <div class="btn">Usuarios</div>
         </a>
 

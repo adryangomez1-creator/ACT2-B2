@@ -95,7 +95,7 @@
 
     <h1 th:text="${modoEdicion} ? 'Editar Producto' : 'Nuevo Producto'"></h1>
 
-    <form th:action="${modoEdicion} ? @{/producto/actualizar/{id}(id=${producto.idProducto})} : @{/producto/guardar}"
+    <form th:action="${modoEdicion} ? @{/producto/actualizar/{id}(id=${producto.codigoProducto})} : @{/producto/guardar}"
           th:object="${producto}"
           method="post">
 
@@ -108,26 +108,27 @@
         </div>
 
         <div class="campo">
-            <label for="precioProducto">Precio</label>
-            <input type="text" id="precioProducto" th:field="*{precioProducto}">
+            <label for="precio">Precio</label>
+            <input type="text" id="precio" th:field="*{precio}">
             <div class="error"
-                 th:if="${#fields.hasErrors('precioProducto')}"
-                 th:errors="*{precioProducto}"></div>
-        </div>
-        <div class="campo">
-            <label for="stockProducto">Stock</label>
-            <input type="number" id="stockProducto" th:field="*{stockProducto}">
-            <div class="error"
-                 th:if="${#fields.hasErrors('stockProducto')}"
-                 th:errors="*{stockProducto}"></div>
+                 th:if="${#fields.hasErrors('precio')}"
+                 th:errors="*{precio}"></div>
         </div>
 
         <div class="campo">
-            <label for="idCategoria">Categoria</label>
-            <input type="number" id="idCategoria" th:field="*{idCategoria}">
+            <label for="stock">Stock</label>
+            <input type="number" id="stock" th:field="*{stock}">
             <div class="error"
-                 th:if="${#fields.hasErrors('idCategoria')}"
-                 th:errors="*{idCategoria}"></div>
+                 th:if="${#fields.hasErrors('stock')}"
+                 th:errors="*{stock}"></div>
+        </div>
+
+        <div class="campo">
+            <label for="estado">Estado</label>
+            <input type="number" id="estado" th:field="*{estado}">
+            <div class="error"
+                 th:if="${#fields.hasErrors('estado')}"
+                 th:errors="*{estado}"></div>
         </div>
 
         <div class="acciones">

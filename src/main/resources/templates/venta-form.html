@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${modoEdicion} ? 'Editar Pedido' : 'Nuevo Pedido'"></title>
+    <title th:text="${modoEdicion} ? 'Editar Venta' : 'Nueva Venta'"></title>
 
     <style>
         body {
@@ -93,34 +93,50 @@
 
 <div class="container">
 
-    <h1 th:text="${modoEdicion} ? 'Editar Pedido' : 'Nuevo Pedido'"></h1>
+    <h1 th:text="${modoEdicion} ? 'Editar Venta' : 'Nueva Venta'"></h1>
 
-    <form th:action="${modoEdicion} ? @{/pedido/actualizar/{id}(id=${pedido.idPedido})} : @{/pedido/guardar}"
-          th:object="${pedido}"
+    <form th:action="${modoEdicion} ? @{/venta/actualizar/{id}(id=${venta.codigoVenta})} : @{/venta/guardar}"
+          th:object="${venta}"
           method="post">
 
         <div class="campo">
-            <label for="fechaPedido">Fecha Pedido</label>
-            <input type="text" id="fechaPedido" th:field="*{fechaPedido}">
+            <label for="fechaVenta">Fecha Venta</label>
+            <input type="date" id="fechaVenta" th:field="*{fechaVenta}">
             <div class="error"
-                 th:if="${#fields.hasErrors('fechaPedido')}"
-                 th:errors="*{fechaPedido}"></div>
+                 th:if="${#fields.hasErrors('fechaVenta')}"
+                 th:errors="*{fechaVenta}"></div>
         </div>
 
         <div class="campo">
-            <label for="totalPedido">Total Pedido</label>
-            <input type="text" id="totalPedido" th:field="*{totalPedido}">
+            <label for="total">Total</label>
+            <input type="number" step="0.01" id="total" th:field="*{total}">
             <div class="error"
-                 th:if="${#fields.hasErrors('totalPedido')}"
-                 th:errors="*{totalPedido}"></div>
+                 th:if="${#fields.hasErrors('total')}"
+                 th:errors="*{total}"></div>
         </div>
 
         <div class="campo">
-            <label for="idUsuario">Usuario</label>
-            <input type="number" id="idUsuario" th:field="*{idUsuario}">
+            <label for="estado">Estado</label>
+            <input type="number" id="estado" th:field="*{estado}">
             <div class="error"
-                 th:if="${#fields.hasErrors('idUsuario')}"
-                 th:errors="*{idUsuario}"></div>
+                 th:if="${#fields.hasErrors('estado')}"
+                 th:errors="*{estado}"></div>
+        </div>
+
+        <div class="campo">
+            <label for="cliente">Cliente</label>
+            <input type="number" id="cliente" th:field="*{cliente}">
+            <div class="error"
+                 th:if="${#fields.hasErrors('cliente')}"
+                 th:errors="*{cliente}"></div>
+        </div>
+
+        <div class="campo">
+            <label for="usuario">Usuario</label>
+            <input type="number" id="usuario" th:field="*{usuario}">
+            <div class="error"
+                 th:if="${#fields.hasErrors('usuario')}"
+                 th:errors="*{usuario}"></div>
         </div>
 
         <div class="acciones">
@@ -128,7 +144,7 @@
                     class="btn btn-guardar"
                     th:text="${modoEdicion} ? 'Actualizar' : 'Guardar'"></button>
 
-            <a th:href="@{/pedido}" class="btn btn-guardar">Volver</a>
+            <a th:href="@{/venta}" class="btn btn-guardar">Volver</a>
         </div>
 
     </form>

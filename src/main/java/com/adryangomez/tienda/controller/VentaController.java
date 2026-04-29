@@ -1,7 +1,7 @@
 package com.adryangomez.tienda.controller;
 
-import com.adryangomez.tienda.entity.Producto;
-import com.adryangomez.tienda.service.ProductoService;
+import com.adryangomez.tienda.entity.Venta;
+import com.adryangomez.tienda.service.VentaService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,72 +15,72 @@ import java.util.List;
 
 @Validated
 @Controller
-@RequestMapping("/producto")
-public class ProductoController {
+@RequestMapping("/venta")
+public class VentaController {
 
-    private final ProductoService productoService;
+    private final VentaService ventaService;
 
-    public ProductoController(ProductoService productoService) {
-        this.productoService = productoService;
+    public VentaController(VentaService ventaService) {
+        this.ventaService = ventaService;
     }
 
     // =========================
-    // VISTAS (THYMELEAF)
+    // VISTAS (Thymeleaf)
     // =========================
 
     @GetMapping
     public String listar(Model model) {
-        model.addAttribute("productos", productoService.listar());
-        return "producto";
+        model.addAttribute("ventas", ventaService.listar());
+        return "venta";
     }
 
     @GetMapping("/nuevo")
     public String formularioNuevo(Model model) {
-        model.addAttribute("producto", new Producto());
+        model.addAttribute("venta", new Venta());
         model.addAttribute("modoEdicion", false);
-        return "producto-form";
+        return "venta-form";
     }
 
     @PostMapping("/guardar")
-    public String crear(@Valid @ModelAttribute("producto") Producto producto,
+    public String crear(@Valid @ModelAttribute("venta") Venta venta,
                         BindingResult result,
                         Model model) {
 
         if (result.hasErrors()) {
             model.addAttribute("modoEdicion", false);
-            return "producto-form";
+            return "venta-form";
         }
 
-        productoService.crear(producto);
-        return "redirect:/producto";
+        ventaService.crear(venta);
+        return "redirect:/venta";
     }
 
     @GetMapping("/editar/{id}")
     public String formularioEditar(@PathVariable Integer id, Model model) {
-        model.addAttribute("producto", productoService.buscarPorId(id));
+        model.addAttribute("venta", ventaService.buscarPorId(id));
         model.addAttribute("modoEdicion", true);
-        return "producto-form";
+        return "venta-form";
     }
 
     @PostMapping("/actualizar/{id}")
     public String actualizar(@PathVariable Integer id,
-                             @Valid @ModelAttribute("producto") Producto producto,
+                             @Valid @ModelAttribute("venta") Venta venta,
                              BindingResult result,
                              Model model) {
 
         if (result.hasErrors()) {
             model.addAttribute("modoEdicion", true);
-            return "producto-form";
+            return "venta-form";
         }
 
-        productoService.actualizar(id, producto);
-        return "redirect:/producto";
+        ventaService.actualizar(id, venta);
+        return "redirect:/venta";
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable Integer id) {
-        productoService.eliminar(id);
-        return "redirect:/producto";
+        ventaService.eliminar(id);
+        return "redirect:/venta";
     }
 
     // =========================
@@ -88,31 +88,31 @@ public class ProductoController {
     // =========================
 
     @GetMapping("/get")
-    public List<Producto> listarAPI() {
-        return productoService.listar();
+    public List<Venta> listarAPI() {
+        return ventaService.listar();
     }
 
     @PostMapping("/post")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Producto> crearAPI(@Valid @RequestBody Producto producto) {
-        Producto creado = productoService.crear(producto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(creado);
+    public ResponseEntity<Venta> crearAPI(@Valid @RequestBody Venta venta) {
+        Venta creada = ventaService.crear(venta);
+        return ResponseEntity.status(HttpStatus.CREATED).body(creada);
     }
 
     @GetMapping("/getId/{id}")
-    public Producto buscarPorId(@PathVariable Integer id) {
-        return productoService.buscarPorId(id);
+    public Venta buscarPorId(@PathVariable Integer id) {
+        return ventaService.buscarPorId(id);
     }
 
     @PutMapping("/put/{id}")
-    public Producto actualizarAPI(@PathVariable Integer id,
-                                  @Valid @RequestBody Producto producto) {
-        return productoService.actualizar(id, producto);
+    public Venta actualizarAPI(@PathVariable Integer id,
+                               @Valid @RequestBody Venta venta) {
+        return ventaService.actualizar(id, venta);
     }
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminarAPI(@PathVariable Integer id) {
-        productoService.eliminar(id);
+        ventaService.eliminar(id);
     }
 }

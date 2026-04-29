@@ -107,31 +107,22 @@
                th:value="${_csrf.token}"/>
 
         <div class="campo">
-            <input type="text" th:field="*{nombreUsuario}" placeholder="Nombre">
-            <div class="error" th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}"></div>
-        </div>
-
-        <div class="campo">
-            <input type="text" th:field="*{apellidoUsuario}" placeholder="Apellido">
-            <div class="error" th:if="${#fields.hasErrors('apellidoUsuario')}" th:errors="*{apellidoUsuario}"></div>
-        </div>
-
-        <div class="campo">
-            <input type="number" th:field="*{edadUsuario}" placeholder="Edad">
-            <div class="error" th:if="${#fields.hasErrors('edadUsuario')}" th:errors="*{edadUsuario}"></div>
-        </div>
-
-        <div class="campo">
-            <input type="text" th:field="*{username}" placeholder="Usuario">
+            <input type="text" th:field="*{username}" placeholder="usuario">
+            <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
         </div>
 
         <div class="campo">
             <input type="password" th:field="*{password}" placeholder="Contraseña">
+            <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+
+        <div class="campo">
+            <input type="email" th:field="*{email}" placeholder="Correo electrónico">
+            <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
         </div>
 
         <button type="submit">Registrarse</button>
     </form>
-
     <div class="login-link">
         <a th:href="@{/login}">¿Ya tienes cuenta? Inicia sesión</a>
     </div>

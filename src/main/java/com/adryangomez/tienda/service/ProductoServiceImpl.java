@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProductoServiceImpl implements ProductoService{
+public class ProductoServiceImpl implements ProductoService {
 
     private final ProductoRepository productoRepository;
 
@@ -23,28 +23,31 @@ public class ProductoServiceImpl implements ProductoService{
 
     @Override
     public Producto crear(Producto producto) {
-        producto.setIdProducto(null);
+        producto.setCodigoProducto(null);
         return productoRepository.save(producto);
     }
 
     @Override
     public Producto buscarPorId(Integer id) {
-        return productoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Producto con ID, no encontrado: " + id));
+        return productoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con ID: " + id));
     }
 
     @Override
     public Producto actualizar(Integer id, Producto producto) {
-        Producto productoExistente = buscarPorId(id);
-        productoExistente.setNombreProducto(producto.getNombreProducto());
-        productoExistente.setPrecioProducto(producto.getPrecioProducto());
-        productoExistente.setStockProducto(producto.getStockProducto());
-        productoExistente.setIdCategoria(producto.getIdCategoria());
-        return productoRepository.save(productoExistente);
+        Producto existente = buscarPorId(id);
+
+        existente.setNombreProducto(producto.getNombreProducto());
+        existente.setPrecio(producto.getPrecio());
+        existente.setStock(producto.getStock());
+        existente.setEstado(producto.getEstado());
+
+        return productoRepository.save(existente);
     }
 
     @Override
     public void eliminar(Integer id) {
-        if(!productoRepository.existsById(id)){
+        if (!productoRepository.existsById(id)) {
             throw new ResourceNotFoundException("Producto no encontrado con ID: " + id);
         }
 

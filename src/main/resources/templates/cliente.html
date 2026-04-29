@@ -1,7 +1,8 @@
+<!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>categoria</title>
+    <title>Clientes</title>
 
     <style>
         body {
@@ -33,11 +34,6 @@
             cursor: pointer;
             background-color: #1976d2;
             color: white;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background-color: #125aa0;
         }
 
         table {
@@ -45,7 +41,6 @@
             margin: 30px auto;
             border-collapse: collapse;
             background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         th, td {
@@ -59,57 +54,52 @@
             color: white;
         }
 
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
         .acciones a {
             margin: 0 5px;
             text-decoration: none;
             color: #1976d2;
             font-weight: bold;
         }
-
-        .acciones a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 
 <body>
 
-<h1 style="text-align: center; margin-bottom: 50px;">
-    hola pagina de categorias
-</h1>
+<h1>Gestión de Clientes</h1>
 
 <div class="contenedor">
     <button onclick="window.location.href='/home'">Home</button>
 </div>
 
-<h1 style="text-align:center">Categorias</h1>
+<h1>Lista de Clientes</h1>
 
 <div style="text-align:center;">
-    <a th:href="@{categoria/nuevo}">Nueva categoria</a>
+    <a th:href="@{/cliente/nuevo}">Nuevo cliente</a>
 </div>
 
 <table>
     <thead>
     <tr>
-        <th>ID</th>
+        <th>DPI</th>
         <th>NOMBRE</th>
-        <th>DESCRIPCION</th>
+        <th>APELLIDO</th>
+        <th>DIRECCIÓN</th>
+        <th>ESTADO</th>
         <th>ACCIONES</th>
     </tr>
     </thead>
 
     <tbody>
-    <tr th:each="Categoria : ${categoria}">
-        <td th:text="${Categoria.idCategoria}"></td>
-        <td th:text="${Categoria.nombreCategoria}"></td>
-        <td th:text="${Categoria.descripcionCategoria}"></td>
+    <tr th:each="cliente : ${clientes}">
+        <td th:text="${cliente.dpiCliente}"></td>
+        <td th:text="${cliente.nombreCliente}"></td>
+        <td th:text="${cliente.apellidoCliente}"></td>
+        <td th:text="${cliente.direccion}"></td>
+        <td th:text="${cliente.estado}"></td>
+
         <td class="acciones">
-            <a th:href="@{/categoria/editar/{id}(id=${Categoria.idCategoria})}">Editar</a>
-            <a th:href="@{/categoria/eliminar/{id}(id=${Categoria.idCategoria})} ">Eliminar</a>
+            <a th:href="@{/cliente/editar/{id}(id=${cliente.dpiCliente})}">Editar</a>
+            <a th:href="@{/cliente/eliminar/{id}(id=${cliente.dpiCliente})}">Eliminar</a>
         </td>
     </tr>
     </tbody>
